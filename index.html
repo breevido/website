@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dani AI - Bangkok's Premier AI Automation Agency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a0a, #1a1a2e, #16213e);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(120, 255, 198, 0.3) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 20px 0;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.5), transparent);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            padding: 5px 0;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            color: #667eea;
+            margin-right: 10px;
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid #667eea;
+        }
+
+        .skill-item h4 {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .skill-item p {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-item span {
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.5);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">Dani AI</div>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Transform Your Business with AI Automation</h1>
+            <p>Bangkok's premier AI automation agency specializing in digital transformation, intelligent systems, and cutting-edge business solutions. We turn complexity into simplicity.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">Start Your Transformation</a>
+                <a href="#services" class="btn btn-secondary">Explore Services</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div style="font-size: 24px;">↓</div>
+            <div style="font-size: 12px; margin-top: 5px;">Scroll to explore</div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <h2 class="section-title">Our Expertise</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>AI Integration & Automation</h3>
+                <p>Advanced AI solutions to streamline your business operations, from automated reporting to intelligent chatbots and strategic analysis.</p>
+                <ul class="service-features">
+                    <li>Custom AI chatbots & virtual assistants</li>
+                    <li>Automated report generation</li>
+                    <li>Intelligent data processing</li>
+                    <li>AI-powered business analytics</li>
+                </ul>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🔧</div>
+                <h3>Digital Systems Architecture</h3>
+                <p>Complete digital transformation with custom databases, workflow automation, and seamless system integration.</p>
+                <ul class="service-features">
+                    <li>Notion workspace optimization</li>
+                    <li>Database design & management</li>
+                    <li>Process automation</li>
+                    <li>System integration solutions</li>
+                </ul>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Data Engineering & Analytics</h3>
+                <p>Transform raw data into actionable insights with advanced data collection, processing, and visualization solutions.</p>
+                <ul class="service-features">
+                    <li>Data pipeline development</li>
+                    <li>Real-time analytics dashboards</li>
+                    <li>Performance tracking systems</li>
+                    <li>Predictive analytics</li>
+                </ul>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>Web Development & Design</h3>
+                <p>Modern, responsive websites with custom functionality, optimal performance, and seamless user experience.</p>
+                <ul class="service-features">
+                    <li>Custom web application development</li>
+                    <li>Responsive design & optimization</li>
+                    <li>CMS integration</li>
+                    <li>Performance optimization</li>
+                </ul>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3>Marketing Automation</h3>
+                <p>Intelligent marketing solutions including content strategy, social media automation, and performance tracking.</p>
+                <ul class="service-features">
+                    <li>Social media automation</li>
+                    <li>Content management systems</li>
+                    <li>Email marketing workflows</li>
+                    <li>Campaign performance analytics</li>
+                </ul>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">⚙️</div>
+                <h3>Business Process Optimization</h3>
+                <p>Streamline operations with SOPs, performance management systems, and organizational development solutions.</p>
+                <ul class="service-features">
+                    <li>SOP creation & documentation</li>
+                    <li>Performance management systems</li>
+                    <li>Training program development</li>
+                    <li>Operational efficiency audits</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-content">
+            <div class="about-text">
+                <h2>Why Choose Dani AI?</h2>
+                <p>With extensive experience in digital transformation and AI implementation, we bring a unique combination of technical expertise and business acumen to every project.</p>
+                <p>Based in Bangkok, we understand the Asian market dynamics and deliver solutions that are not just technically sound, but culturally relevant and business-focused.</p>
+                <a href="#contact" class="btn btn-primary">Let's Work Together</a>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <h4>Systems Architecture</h4>
+                    <p>Expert in designing scalable digital ecosystems</p>
+                </div>
+                <div class="skill-item">
+                    <h4>AI Implementation</h4>
+                    <p>Advanced AI integration for business automation</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Data Engineering</h4>
+                    <p>Complex data processing and analytics solutions</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Process Optimization</h4>
+                    <p>Streamlining operations for maximum efficiency</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Web Development</h4>
+                    <p>Modern, high-performance web applications</p>
+                </div>
+                <div class="skill-item">
+                    <h4>Strategic Planning</h4>
+                    <p>Business-focused technology solutions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-content">
+            <h2>Ready to Transform Your Business?</h2>
+            <p>Let's discuss how AI automation can revolutionize your operations and drive unprecedented growth. Get in touch for a free consultation.</p>
+            <a href="mailto:hello@daniai.co" class="btn btn-primary">Get Free Consultation</a>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📍</span>
+                    <span>Bangkok, Thailand</span>
+                </div>
+                <div class="contact-item">
+                    <span>💼</span>
+                    <span>AI Automation Specialist</span>
+                </div>
+                <div class="contact-item">
+                    <span>🚀</span>
+                    <span>Digital Transformation Expert</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.8)';
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(50px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.background = 'rgba(102, 126, 234, 0.1)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.background = 'rgba(255, 255, 255, 0.05)';
+            });
+        });
+
+        // Parallax effect for background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            const bgAnimation = document.querySelector('.bg-animation');
+            bgAnimation.style.transform = `translateY(${rate}px)`;
+        });
+    </script>
+</body>
+</html>
